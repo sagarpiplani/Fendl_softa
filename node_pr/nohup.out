@@ -1,0 +1,8 @@
+Example app listening on port 8000!
+Connected!
+npm ERR! missing script: start
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/softafandl/.npm/_logs/2021-05-18T10_04_50_366Z-debug.log
+Example app listening on port 8000!
+Connected!
