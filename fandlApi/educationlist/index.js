@@ -1,8 +1,9 @@
 var express  = require('express');
 var router = express.Router();
+// import * as controller from '../educationlist.controller.js';
 
 var db = require("../../connection");
-console.log("getCategories");
+// console.log("getCategories");
 router.get('/getUserEducation/:id', function(req, res, next) {
   // var data=req.query;
   // var page_limit=req.params.page_limit;

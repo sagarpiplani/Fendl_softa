@@ -17,6 +17,7 @@
   app.use('/fandlApi/languageList', require('./fandlApi/languageList'));
   app.use('/fandlApi/otherUser', require('./fandlApi/otherUser'));
   app.use('/fandlApi/friendRequest', require('./fandlApi/friendRequest'));
+  app.use('/fandlApi/Feed', require('./fandlApi/Feed'));
   console.log("apihit")
  }
 
