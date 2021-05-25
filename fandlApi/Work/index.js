@@ -2,6 +2,7 @@ var express  = require('express');
 var router = express.Router();
 
 var db = require("../../connection");
+var bodyParser = require('body-parser')
 console.log("getCategories");
 router.get('/work_list/:id', function(req, res, next) {
 
@@ -30,9 +31,12 @@ router.get('/work_list/:id', function(req, res, next) {
     
   });
 
-  router.post('/work_insert', function(req,res,next){
+  var jsonParser = bodyParser.json();
+  var urlencodedParser = bodyParser.urlencoded({ extended: false })
+ 
+
+  router.post('/work_insert', jsonParser,function(req,res){
      work_insert = req.body;
-    console.log("work_insert", work_insert)
     work_insert.user_id =req.body.user_id;
 work_insert.work_position =req.body.work_position;
 work_insert.work_company_name =req.body.work_company_name;
@@ -41,7 +45,7 @@ work_insert.work_end_date =req.body.work_end_date;
 work_insert.work_currently =req.body.work_currently;
 work_insert.work_description =req.body.work_description;
     console.log("work_insert",work_insert);
-    con.query('INSERT INTO tbl_works SET ?', work_insert,
+    db.query('INSERT INTO tbl_works SET ?', work_insert,
     function (err, rows, fields) {
         if (err) {
             if (err.errno==1062) {
@@ -57,6 +61,7 @@ work_insert.work_description =req.body.work_description;
         } else {
             return res.send(JSON.stringify({
                 "status": 201,
+                "message": "Data Inserted Sucessfully",
                 "id": rows.insertId,
                 "error": null
             }));
