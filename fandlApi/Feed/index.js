@@ -5,7 +5,7 @@ var db = require("../../connection");
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-router.post('/follow_user',jsonParser, function(req, res, next) {
+router.post('/contr',jsonParser, function(req, res, next) {
     followUser=req.body;
     followUser.followered_to_id=req.body.followered_to_id;
     followUser.follower_by_id=req.body.follower_by_id;
@@ -36,7 +36,7 @@ router.post('/follow_user',jsonParser, function(req, res, next) {
     feed_user=req.params.feed_user_id;
     userId=req.params.user_id;
     req_status=5;
-    var req_msg='';
+    var req_msg="unfollow998989";
     var record=[];
     var record1=[];
     var d= new Date().getDate();
@@ -54,18 +54,36 @@ var y= new Date().getFullYear();
         if (error) throw error;      
          record1=results;
       });
-      if(record.length==0)
+      if(record.length!=0)
       {
-        db.query('update tbl_friend_request set  request_status='+req_status+',modified_date='+modified_date+' where sender_user_id='+feed_user+' and receiver_user_id='+userId+' ' ,function (error, results1, fields) {
-            if (error) throw error;            
-            res.send({ status: 200, msg: "success" });            
+        db.query('update tbl_friend_request set request_msg="'+req_msg+'", request_status="'+req_status+'",modified_date="'+modified_date+'" where sender_user_id='+feed_user+' and receiver_user_id='+userId+' ' ,function (error, results1, fields) {
+            // if (error) throw error;            
+            // res.send({ status: 200, msg: "success","result": results1 });
+            // return res.status(200).json({
+            //     status: 'succes',
+            //     data: results1,
+            //    })  
+            if(!error) {
+                res.send({ status: 200, msg: "success" });  
+            } else {
+                res.send({error:error});
+            }                    
           });
       }
-      if(record1.length==0)
+      if(record1.length!=0)
       {
-        db.query('update tbl_friend_request set  request_status='+req_status+',modified_date='+modified_date+' where receiver_user_id='+feed_user+' and sender_user_id='+userId+' ' ,function (error, results1, fields) {
-            if (error) throw error;            
-            res.send({ status: 200, msg: "success" });            
+        db.query('update tbl_friend_request set request_msg="'+req_msg+'", request_status="'+req_status+'",modified_date="'+modified_date+'" where receiver_user_id='+feed_user+' and sender_user_id='+userId+' ' ,function (error, results1, fields) {
+            // if (error) throw error;            
+            // res.send({ status: 200, msg: "success" , "result": results1});  
+        //    return res.status(200).json({
+        //     status: 'succes',
+        //     data: results1,
+        //    })    
+        if(!error) {
+            res.send({ status: 200, msg: "success" }); 
+        } else {
+            res.send({error:error});
+        }      
           });
       }
   });
