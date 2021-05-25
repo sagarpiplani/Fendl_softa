@@ -84,7 +84,7 @@ work_insert.work_description =req.body.work_description;
     
   });
 
-  router.post('/work_update/:id',jsonParser, function(req, res, next) {
+  router.post('/work_update',jsonParser, function(req, res, next) {
 
     work_insert = req.body;
     work_insert.work_id=req.body.work_id;
